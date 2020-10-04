@@ -1,0 +1,10 @@
+[Unit]
+Description=Temperature push to graphite Service
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/home/pi/pi-zeroconf/temp/push_temps.sh gandalf.crocoware.com
+
+[Install]
+WantedBy=multi-user.target
