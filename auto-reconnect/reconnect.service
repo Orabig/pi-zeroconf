@@ -1,0 +1,10 @@
+[Unit]
+Description=Autoreconnect network when lost or reboot
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/reconnect.pl
+
+[Install]
+WantedBy=multi-user.target
