@@ -36,7 +36,11 @@ else
   echo "$BOOT : Fixed"
 fi
 
+echo Configure temperature.service
 sudo cp temperature.service /lib/systemd/system/
+echo systemd daemon reload
 sudo systemctl daemon-reload
+echo enable temperature.service
 sudo systemctl enable temperature.service
+echo start temperature.service
 sudo systemctl start temperature.service

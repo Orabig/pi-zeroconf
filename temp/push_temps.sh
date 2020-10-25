@@ -8,9 +8,14 @@ while true; do
   do
     probe=${file##*/28-}
     echo -n "Read probe 28-$probe : "
-    TEMP=$(cat $BASE/28-$probe/temperature | perl -pe '$_/=1000.0')
-    echo $TEMP'°'
-    echo -n "home.temp.$probe:$TEMP|g" | nc -w 1 -u $GRAPHITE 8125
+    if grep -E 'crc.* YES' $BASE/28-$probe/w1_slave > /dev/null
+    then
+	    TEMP=$(cat $BASE/28-$probe/w1_slave | perl -ne 'print $1/1000.0 if /t=(\d+)/')
+	    echo $TEMP'°'
+	    echo -n "home.temp.$probe:$TEMP|g" | nc -w 1 -u $GRAPHITE 8125
+	else
+		echo "crc not ok"
+	fi
   done
 
   sleep 5
