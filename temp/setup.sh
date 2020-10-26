@@ -42,5 +42,5 @@ echo systemd daemon reload
 sudo systemctl daemon-reload
 echo enable temperature.service
 sudo systemctl enable temperature.service
-echo start temperature.service
-sudo systemctl start temperature.service
+echo restart temperature.service
+sudo systemctl restart temperature.service
