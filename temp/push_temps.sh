@@ -3,6 +3,12 @@
 BASE=/sys/bus/w1/devices
 GRAPHITE=$1
 
+# Core temp
+TEMP=$(vcgencmd measure_temp | perl -ne 'print $1 if /temp=([\d\.]+)/')
+echo "core:" $TEMP'°'
+echo -n "home.temp.code_$(hostname):$TEMP|g" | nc -w 1 -u $GRAPHITE 8125
+
+
 while true; do
   for file in $BASE/28-*
   do
